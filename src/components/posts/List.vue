@@ -82,7 +82,47 @@ export default {
 }
 </script>
 
-<style type="text/css">
+<style>
+.pagination-wrapper {
+  text-align: center;
+  margin: 0;
+}
+
+.pagination {
+  display: inline-block;
+  height: 35px;
+  padding: 0 18px;
+  border-radius: 35px;
+  background-color: #f2f2f2;
+}
+
+.page-numbers {
+  display: block;
+  padding: 0 25px;
+  float: left;
+  transition: 400ms ease;
+  color: #595959;
+  font-size: 16px;
+  letter-spacing: 0.1em;
+  line-height: 35px;
+}
+
+.page-numbers:hover, .page-numbers:focus, .page-numbers.active {
+  background-color: #41b883;
+  color: #fff;
+}
+
+.page-numbers a {
+  color: black;
+}
+
+.page-numbers a:hover, .page-numbers a:focus, .page-numbers a.active {
+  color: #fff;
+  outline: none;
+}
+</style>
+
+<style type="text/css" scoped>
 .table-wrap {
   width: 60%;
   margin: 0 auto;
@@ -120,43 +160,5 @@ a.add_post_link {
   text-transform: uppercase;
   font-size: 12px;
   font-weight: bold;
-}
-
-.pagination-wrapper {
-  text-align: center;
-  margin: 0;
-}
-
-.pagination {
-  display: inline-block;
-  height: 50px;
-  padding: 0 25px;
-  border-radius: 35px;
-  background-color: #f2f2f2;
-}
-
-.page-numbers {
-  display: block;
-  padding: 0 25px;
-  float: left;
-  transition: 400ms ease;
-  color: #595959;
-  font-size: 16px;
-  letter-spacing: 0.1em;
-  line-height: 50px;
-}
-
-.page-numbers:hover, .page-numbers:focus, .page-numbers.active {
-  background-color: #41b883;
-  color: #fff;
-}
-
-.page-numbers a {
-  color: black;
-}
-
-.page-numbers a:hover, .page-numbers a:focus, .page-numbers a.active {
-  color: #fff;
-  outline: none;
 }
 </style>
