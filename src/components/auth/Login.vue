@@ -1,13 +1,17 @@
 <template>
-  <div class="posts">
+  <div class="login-form">
     <h1>Login</h1>
       <div class="form">
         <span class="err-message">{{ error_message }}</span>
-        <div>
+        <div :class="{ 'form-group--error': submitted && $v.username.$error }">
           <input class="username" type="text" name="username" placeholder="USERNAME" v-model="username">
+          <div class="error" v-if="submitted && !$v.username.required">* Username is required</div>
+          <div class="error" v-if="submitted && !$v.username.minLength">* Username must have at least {{$v.username.$params.minLength.min}} characters.</div>
         </div>
-        <div>
+        <div :class="{ 'form-group--error': submitted && $v.password.$error }">
           <input class="password" type="text" name="password" placeholder="PASSWORD" v-model="password">
+          <div class="error" v-if="submitted && !$v.password.required">* Password is required</div>
+          <div class="error" v-if="submitted && !$v.password.minLength">* Password must have at least {{$v.password.$params.minLength.min}} characters.</div>
         </div>
         <div class="checkbox-remember-me">
           <input type="checkbox" id="checkbox" v-model="is_keep_loging">
@@ -21,6 +25,7 @@
 </template>
 
 <script>
+import { required, minLength } from 'vuelidate/lib/validators'
 import AuthService from '@/services/AuthService'
 export default {
   name: 'Login',
@@ -29,13 +34,26 @@ export default {
       username: '',
       password: '',
       is_keep_loging: false,
-      error_message: ''
+      error_message: '',
+      submitted: false
+    }
+  },
+  validations: {
+    username: {
+      required,
+      minLength: minLength(4)
+    },
+    password: {
+      required,
+      minLength: minLength(6)
     }
   },
   methods: {
     async login () {
+      this.submitted = true
+      this.$v.$touch()
       const scope = this
-      if (!this.username || !this.password) return false
+      if (this.$v.$invalid) return false
       AuthService.login({
         username: this.username,
         password: this.password,
@@ -69,10 +87,20 @@ export default {
   font-size: 12px;
 }
 
-.checkbox-remember-me {
+.checkbox-remember-me, .error {
   width: 500px;
   text-align: left;
-  margin: 0 auto !important;
+  margin: 10px auto !important;
+}
+
+.error {
+  font-size: 12px;
+  color: red;
+  opacity: 0.8;
+}
+
+.form-group--error input {
+  border-color: red;
 }
 
 .form div {
@@ -89,5 +117,9 @@ export default {
   width: 520px;
   border: none;
   cursor: pointer;
+}
+
+.login_btn:focus{
+  outline: none;
 }
 </style>

@@ -1,13 +1,19 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
-    <router-view/>
+    <component :is="layout">
+    </component>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  computed: {
+    layout () {
+      return (this.$route.meta.requiredAuth) ? 'Authenticated' : 'NotAuthenticated'
+    }
+  }
 }
 </script>
 

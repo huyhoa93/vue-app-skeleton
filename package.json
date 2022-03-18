@@ -19,6 +19,7 @@
     "vue-jwt-decode": "^0.1.0",
     "vue-router": "^3.0.1",
     "vuejs-paginate": "^2.1.0",
+    "vuelidate": "^0.7.5",
     "vuex": "^3.4.0"
   },
   "devDependencies": {

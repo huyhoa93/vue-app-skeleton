@@ -2,8 +2,10 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import VueJwtDecode from 'vue-jwt-decode'
 import HelloWorld from '@/components/HelloWorld'
-import NotAuthenticated from '@/components/layout/NotAuthenticated'
-import Authenticated from '@/components/layout/Authenticated'
+import Login from '@/components/auth/Login'
+import PostsList from '@/components/posts/List'
+import PostsAdd from '@/components/posts/Add'
+import PostsEdit from '@/components/posts/Edit'
 
 Vue.use(Router)
 
@@ -13,12 +15,10 @@ const router = new Router({
     {
       path: '/login',
       name: 'Login',
-      component: NotAuthenticated,
-      children: [{
-        path: '/login',
-        name: 'Login',
-        component: () => import('@/components/auth/Login')
-      }]
+      component: Login,
+      meta: {
+        requiredAuth: false
+      }
     },
     {
       path: '/',
@@ -28,32 +28,26 @@ const router = new Router({
     {
       path: '/posts',
       name: 'Posts',
-      component: Authenticated,
-      children: [{
-        path: '/posts',
-        name: 'Posts',
-        component: () => import('@/components/posts/List')
-      }]
+      component: PostsList,
+      meta: {
+        requiredAuth: true
+      }
     },
     {
       path: '/posts/new',
       name: 'AddPost',
-      component: Authenticated,
-      children: [{
-        path: '/posts/new',
-        name: 'AddPost',
-        component: () => import('@/components/posts/Add')
-      }]
+      component: PostsAdd,
+      meta: {
+        requiredAuth: true
+      }
     },
     {
       path: '/posts/:id',
       name: 'EditPost',
-      component: Authenticated,
-      children: [{
-        path: '/posts/:id',
-        name: 'EditPost',
-        component: () => import('@/components/posts/Edit')
-      }]
+      component: PostsEdit,
+      meta: {
+        requiredAuth: true
+      }
     }
   ]
 })
